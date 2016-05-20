@@ -2,24 +2,82 @@ package es.udc.csai.rest.model;
 
 public class User {
 
-	private String login;
+	private long id;
 
-	private String password;
+	private String username;
 
-	public String getLogin() {
-		return login;
+	private String address;
+
+	private String email;
+
+	public User() {
+		id = 0;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public User(long id, String username, String address, String email) {
+		this.id = id;
+		this.username = username;
+		this.address = address;
+		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public long getId() {
+		return id;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof User))
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", address=" + address + ", email=" + email + "]";
 	}
 
 }

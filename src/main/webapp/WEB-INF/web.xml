@@ -30,7 +30,7 @@
 
 	<filter>
 		<filter-name>cors</filter-name>
-		<filter-class>es.udc.csai.rest.SimpleCORSFilter</filter-class>
+		<filter-class>es.udc.csai.rest.config.SimpleCORSFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
