@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/public")
+@RequestMapping("/api/public")
 public class PublicRestController {
 
 	@RequestMapping(name = "", method = RequestMethod.GET)

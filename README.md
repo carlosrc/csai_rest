@@ -2,4 +2,5 @@
 
 Métodos para hacer seguro un servicio REST.
 
-* Tag 1: HTTP Basic
+* Tag v1: HTTP Basic
+* Tag v2: JWT (Json Web Token)
