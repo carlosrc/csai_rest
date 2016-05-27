@@ -38,13 +38,7 @@ public class JWTFilter extends GenericFilterBean {
 				if (this.tokenProvider.validateToken(jwt)) {
 					Authentication authentication = this.tokenProvider.getAuthentication(jwt);
 					SecurityContextHolder.getContext().setAuthentication(authentication);
-				} else {
-					((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-					return;
 				}
-			} else {
-				((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				return;
 			}
 			filterChain.doFilter(servletRequest, servletResponse);
 		} catch (ExpiredJwtException eje) {

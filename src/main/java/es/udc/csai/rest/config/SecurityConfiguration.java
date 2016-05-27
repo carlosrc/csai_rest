@@ -22,10 +22,6 @@ import es.udc.csai.rest.service.UserService;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	public SecurityConfiguration() {
-		super(false);
-	}
-
 	@Autowired
 	private Http401UnauthorizedEntryPoint authenticationEntryPoint;
 
@@ -49,8 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**").antMatchers("/api/login", "/api/public")
-				.antMatchers("/client/**");
+		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**").antMatchers("/client/**");
 	}
 
 	@Override
@@ -64,11 +59,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 				
 		http.authorizeRequests()
+		
+			.antMatchers("/api/login").permitAll()
+			.antMatchers("/api/public/**").permitAll()
+			
 			.antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
 			.antMatchers("/api/user/**").hasAuthority(AuthoritiesConstants.USER)
 			
-			.antMatchers("/api/login").permitAll()
-			.antMatchers("/protected/**").authenticated();
+			.antMatchers("/api/protected/**").authenticated();
 
 		http.apply(securityConfigurerAdapter());
 		

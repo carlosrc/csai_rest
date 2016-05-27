@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/public")
 public class PublicRestController {
 
-	@RequestMapping(name = "", method = RequestMethod.GET)
+	@RequestMapping(name = "/index", method = RequestMethod.GET)
 	public ResponseEntity<String> index() {
 		return new ResponseEntity<>("página pública", HttpStatus.OK);
 	}

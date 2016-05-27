@@ -38,6 +38,8 @@ public class TokenProvider {
 
 	@PostConstruct
 	public void init() {
+		// Inicializa las constantes con las que se creará el JWT (la clave
+		// secreta y los segundos de validez).
 		this.secretKey = constantsProperties.getSecurity().getAuthentication().getJwt().getSecret();
 
 		this.tokenValidityInSeconds = 1000
@@ -46,6 +48,8 @@ public class TokenProvider {
 				.getTokenValidityInSecondsForRememberMe();
 	}
 
+	// Crea un JWT a partir de los datos de usuario, firmándolo con el algoritmo
+	// HS512
 	public String createToken(Authentication authentication, Boolean rememberMe) {
 		String authorities = authentication.getAuthorities().stream().map(authority -> authority.getAuthority())
 				.collect(Collectors.joining(","));
@@ -62,6 +66,7 @@ public class TokenProvider {
 				.signWith(SignatureAlgorithm.HS512, secretKey).setExpiration(validity).compact();
 	}
 
+	// Devuelve un objeto Authentication a partir de un JWT
 	public Authentication getAuthentication(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
 
@@ -74,6 +79,7 @@ public class TokenProvider {
 		return new UsernamePasswordAuthenticationToken(principal, "", authorities);
 	}
 
+	// Valida un JWT
 	public boolean validateToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken);
